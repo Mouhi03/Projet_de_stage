@@ -1,0 +1,64 @@
+<div class="form-container">
+  <div class="form-header">
+    <h1>Create account</h1>
+    <p>Create a new account to get started</p>
+  </div>
+
+  <form class="auth-form" (ngSubmit)="onSubmit()">
+    <div class="input-container">
+      <label>Full Name</label>
+      <input
+        type="text"
+        [(ngModel)]="fullName"
+        name="fullName"
+        placeholder="Enter your full name"
+        [class.input-error]="showError"
+        required>
+    </div>
+
+    <div class="input-container">
+      <label>Email</label>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Enter your email"
+        [class.input-error]="showError"
+        required>
+    </div>
+
+    <div class="input-container">
+      <label>Password</label>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Enter your password"
+        [class.input-error]="showError"
+        required>
+    </div>
+
+    <div class="input-container">
+      <label>Confirm Password</label>
+      <input
+        type="password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        placeholder="Confirm your password"
+        [class.input-error]="showError && password !== confirmPassword"
+        required>
+      <div *ngIf="showError && password !== confirmPassword" class="error-message">
+        Passwords do not match
+      </div>
+    </div>
+
+    <button type="submit" class="primary-btn" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Create account</span>
+      <span *ngIf="isLoading" class="spinner"></span>
+    </button>
+  </form>
+
+  <div class="form-footer">
+    <div class="footer-text">Already have an account? <a class="text-link" (click)="onSignIn()">Sign in</a></div>
+  </div>
+</div>

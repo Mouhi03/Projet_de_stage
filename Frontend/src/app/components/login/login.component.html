@@ -1,0 +1,17 @@
+<div class="login-container">
+  <app-login-form
+    *ngIf="activeForm === 'login'"
+    (switchToForgot)="activeForm = 'forgot'"
+    (switchToSignup)="activeForm = 'signup'">
+  </app-login-form>
+
+  <app-signup-form
+    *ngIf="activeForm === 'signup'"
+    (switchToLogin)="activeForm = 'login'">
+  </app-signup-form>
+
+  <app-forgot-password
+    *ngIf="activeForm === 'forgot'"
+    (switchToLogin)="activeForm = 'login'">
+  </app-forgot-password>
+</div>

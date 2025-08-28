@@ -1,0 +1,980 @@
+// Simplified Indigo/Violet Theme Variables
+$primary: #4F46E5;
+$primary-dark: #3730A3;
+$primary-light: #A5B4FC;
+$text-dark: #212121;
+$text-light: #FFFFFF;
+$background: #FAFAFA;
+$card-bg: #FFFFFF;
+$border: #E0E0E0;
+$gray-medium: #9E9E9E;
+$shadow: rgba(0, 0, 0, 0.1);
+
+// Base Styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: $text-dark;
+  background-color: $background;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 0;
+  color: $text-dark;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+// Header Styles
+.app-header {
+  background: $text-dark;
+  padding: 0.875rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid $primary;
+
+  @media (max-width: 768px) {
+    padding: 0.875rem 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+.header-brand h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-light;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
+}
+
+.header-nav {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.25rem;
+
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0.625rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    position: relative;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: $text-light;
+    }
+
+    &.active {
+      background: rgba(255, 255, 255, 0.2);
+      color: $text-light;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -0.875rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 3px;
+        background: $primary;
+        border-radius: 3px 3px 0 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.header-actions .logout-btn {
+  border: none;
+  background: $primary;
+  cursor: pointer;
+  padding: 0.625rem 1.25rem;
+  color: $text-light;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background: $primary-dark;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+// Main Content
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
+}
+
+.view-container {
+  background: $card-bg;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px $shadow;
+  padding: 1.5rem;
+  border: 1px solid $border;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+// Parking View
+.parking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border;
+
+  h2 {
+    color: $text-dark;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+.reserve-btn {
+  border: none;
+  background: $primary;
+  color: $text-light;
+  padding: 0.875rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: $primary-dark;
+  }
+
+  &.lively {
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($primary, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba($primary, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($primary, 0);
+  }
+}
+
+.parking-lot {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.parking-spot {
+  background: $card-bg;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px $shadow;
+  padding: 1.25rem;
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all 0.2s;
+  min-height: 120px;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: $primary-light;
+  }
+
+  &.reserved {
+    background: lighten($primary-light, 10%);
+    border-color: $primary;
+  }
+
+  &.available {
+    background: lighten($primary-light, 15%);
+    border-color: $primary-dark;
+  }
+}
+
+.spot-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text-dark;
+}
+
+.spot-status {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: $gray-medium;
+  border: 2px solid $card-bg;
+  transition: all 0.2s;
+}
+
+.reserved .spot-status {
+  background: $primary;
+}
+
+.available .spot-status {
+  background: $primary-dark;
+}
+
+.spot-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #424242;
+}
+
+// Tooltip Styles
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: $card-bg;
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 280px;
+  border: 1px solid $border;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: $card-bg transparent transparent transparent;
+  }
+}
+
+.tooltip-header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid $border;
+
+  h4 {
+    color: $primary;
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.tooltip-content {
+  p {
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+    color: $text-dark;
+    display: flex;
+
+    strong {
+      color: $primary-dark;
+      min-width: 80px;
+      display: inline-block;
+    }
+  }
+}
+
+.cancel-reservation-btn {
+  border: none;
+  background: $primary;
+  color: $text-light;
+  padding: 0.625rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: $primary-dark;
+  }
+}
+
+// About View
+.about-content h2 {
+  color: $text-dark;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border;
+}
+
+.about-section {
+  margin-bottom: 2.5rem;
+  padding: 1.75rem;
+  background: #F5F5F5;
+  border-radius: 8px;
+  border: 1px solid $border;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    color: $primary;
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  p, ul {
+    color: $text-dark;
+    line-height: 1.7;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      padding: 0.5rem 0;
+      position: relative;
+      padding-left: 1.75rem;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: $primary;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Billing Options Styles
+.billing-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.billing-card {
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s;
+  border: 1px solid $border;
+  background: $card-bg;
+  display: flex;
+  flex-direction: column;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: $primary;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  h4 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: $text-dark;
+  }
+
+  .price {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: $primary;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+
+    li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.75rem;
+      position: relative;
+      color: $text-dark;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: $primary;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.plan-select-btn {
+  border: none;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  color: $text-light;
+  font-weight: 600;
+  font-size: 1rem;
+  background: $primary;
+  transition: all 0.2s;
+  margin-top: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: $primary-dark;
+  }
+}
+
+// Contact Cards
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.contact-card {
+  background: $card-bg;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px $shadow;
+  padding: 1.5rem;
+  border: 1px solid $border;
+
+  h4 {
+    color: $primary;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    color: $text-dark;
+    font-size: 0.95rem;
+  }
+}
+
+// Testimonials
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.testimonial {
+  background: $card-bg;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px $shadow;
+  padding: 1.5rem;
+  border: 1px solid $border;
+  border-left: 4px solid $primary;
+
+  p {
+    margin: 0 0 1rem 0;
+    color: $text-dark;
+    font-style: italic;
+  }
+
+  .author {
+    font-weight: 600;
+    color: $primary-dark;
+    margin: 0;
+    font-style: normal;
+  }
+}
+
+// Settings View
+.settings-content h2 {
+  color: $text-dark;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border;
+}
+
+.settings-section {
+  background: $card-bg;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px $shadow;
+  padding: 1.75rem;
+  border: 1px solid $border;
+  margin-bottom: 2rem;
+
+  h3 {
+    color: $primary;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid $border;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: $text-dark;
+    font-size: 0.95rem;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.875rem;
+    border: 1px solid $border;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    background: $card-bg;
+    color: $text-dark;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+  }
+}
+
+.checkbox-group {
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: normal;
+    color: $text-dark;
+  }
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: $primary;
+  }
+}
+
+.save-btn {
+  border: none;
+  background: $primary;
+  color: $text-light;
+  padding: 0.875rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: $primary-dark;
+  }
+}
+
+// Modal Styles
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.modal-content {
+  background: $card-bg;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(-20px);
+  transition: transform 0.2s;
+  border: 1px solid $border;
+
+  .modal.show & {
+    transform: translateY(0);
+  }
+
+  h2 {
+    color: $primary;
+    margin-bottom: 1.75rem;
+    text-align: center;
+  }
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.75rem;
+  justify-content: flex-end;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.cancel-btn {
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border: 1px solid $border;
+  border-radius: 8px;
+  font-weight: 500;
+  color: $text-dark;
+  transition: all 0.2s;
+  background: #F5F5F5;
+  cursor: pointer;
+
+  &:hover {
+    background: darken(#F5F5F5, 5%);
+  }
+}
+
+.submit-btn {
+  border: none;
+  background: $primary;
+  color: $text-light;
+  padding: 0.875rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: $primary-dark;
+  }
+
+  &:disabled {
+    background: $gray-medium;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// Footer Styles
+.app-footer {
+  background: $text-dark;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid $primary;
+  margin-top: auto;
+
+  .footer-content p {
+    color: $text-light;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+// Success Popup Styles
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.success-content {
+  background: $card-bg;
+  border-radius: 8px;
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transform: scale(0.9);
+  transition: transform 0.2s;
+  border: 1px solid $primary;
+
+  .success-popup.show & {
+    transform: scale(1);
+  }
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: $primary;
+  color: $text-light;
+  font-size: 2rem;
+  line-height: 64px;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 0 15px rgba($primary, 0.5);
+}
+
+.success-content h3 {
+  color: $text-dark;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.success-content p {
+  color: $text-dark;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.success-close-btn {
+  border: none;
+  background: $primary;
+  color: $text-light;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: $primary-dark;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .parking-lot {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .billing-options {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-cards,
+  .testimonials {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .parking-spot {
+    min-height: 100px;
+    padding: 1rem;
+  }
+
+  .spot-number {
+    font-size: 1.1rem;
+  }
+
+  .modal-content {
+    padding: 1.75rem;
+    margin: 1rem;
+  }
+
+  .success-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Logo*/
+  .logo-container {
+    color: white;
+  }
+
+  .logo-primary {
+    color: white;
+    font-weight: bold;
+  }
+
+  .logo-secondary {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+// Focus visible for accessibility
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}
+
+// Utility Classes
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.submit-form-btn {
+  border: none;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  color: $text-light;
+  font-weight: 600;
+  font-size: 1rem;
+  background: $primary;
+  transition: all 0.2s;
+  margin-top: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

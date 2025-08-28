@@ -1,0 +1,168 @@
+/* Cyberpunk Parking Lot Styles */
+:root {
+    --neon-cyan: #0ff;
+    --neon-pink: #f0f;
+    --dark-bg: #0a0a12;
+    --darker-bg: #050508;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark-bg);
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+}
+
+.cyber-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.cyber-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--neon-cyan);
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.neon-text {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 5px var(--neon-cyan);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-link:hover {
+    color: var(--neon-cyan);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--neon-cyan);
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Parking Grid */
+.parking-display {
+    display: flex;
+    gap: 30px;
+}
+
+.parking-grid {
+    flex: 3;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.parking-space {
+    aspect-ratio: 1/1.5;
+    background-color: var(--darker-bg);
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.parking-space.available {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.parking-space.occupied {
+    border-color: #ff5555;
+}
+
+.parking-space.reserved {
+    border-color: #ffff55;
+}
+
+.parking-space::before {
+    content: attr(data-number);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 0.8rem;
+}
+
+/* Info Panel */
+.info-panel {
+    flex: 1;
+    background-color: var(--darker-bg);
+    padding: 20px;
+    border: 1px solid var(--neon-cyan);
+}
+
+.availability {
+    margin-top: 20px;
+}
+
+.availability p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+/* Footer */
+.cyber-footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid var(--neon-cyan);
+}
+
+/* Simple Animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.neon-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .parking-display {
+        flex-direction: column;
+    }
+
+    .parking-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

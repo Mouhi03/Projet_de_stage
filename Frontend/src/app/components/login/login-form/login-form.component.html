@@ -1,0 +1,43 @@
+<div class="form-container">
+  <div class="form-header">
+    <h1>Welcome back</h1>
+    <p>Sign in to your account to continue</p>
+  </div>
+
+  <form class="auth-form" (ngSubmit)="onSubmit()">
+    <div class="input-container">
+      <label>Email</label>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Enter your email"
+        [class.input-error]="showError"
+        required>
+    </div>
+
+    <div class="input-container">
+      <label>Password</label>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Enter your password"
+        [class.input-error]="showError"
+        required>
+      <div *ngIf="showError" class="error-message">
+        Invalid credentials. Please try again.
+      </div>
+    </div>
+
+    <button type="submit" class="primary-btn" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Sign in</span>
+      <span *ngIf="isLoading" class="spinner"></span>
+    </button>
+  </form>
+
+  <div class="form-footer">
+    <a class="text-link" (click)="onForgotPassword()">Forgot your password?</a>
+    <div class="footer-text">Don't have an account? <a class="text-link" (click)="onSignUp()">Sign up</a></div>
+  </div>
+</div>

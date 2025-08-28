@@ -1,0 +1,427 @@
+<!-- home.component.html -->
+<div class="app-container">
+  <!-- Header/Navigation -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="logo-container">
+        <svg class="logo-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M19 13H5v-2h14v2zm0 4H5v-2h14v2zm0-8H5V7h14v2z"/>
+          <path fill="currentColor" d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2zm0 2v10h16V7H4z"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-primary">SMART</span>
+          <span class="logo-secondary">Park</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="header-nav">
+      <button [class.active]="currentView === 'parking'" (click)="showView('parking')" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M5 11h14V5H5v6zm2-4h10v2H7V7zm12 6H5v6h14v-6zm-12 4h10v-2H7v2z"/>
+        </svg>
+        <span>Parking</span>
+      </button>
+      <button [class.active]="currentView === 'about'" (click)="showView('about')" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
+        <span>About</span>
+      </button>
+      <button [class.active]="currentView === 'settings'" (click)="showView('settings')" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="logout-btn" (click)="logout()">
+        <svg class="logout-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+        </svg>
+        <span>Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Parking View -->
+    <div *ngIf="currentView === 'parking'" class="view-container">
+      <div class="parking-header">
+        <h2>Parking Lot Management</h2>
+        <div class="global-reserve">
+          <button class="reserve-btn lively" (click)="openReservationModal()">+ Reserve a Spot</button>
+        </div>
+      </div>
+
+      <div class="parking-lot">
+        <div *ngFor="let spot of parkingSpots; let i = index"
+             class="parking-spot"
+             [class.reserved]="spot.reserved">
+          <span class="spot-number">{{i + 1}}</span>
+          <div class="spot-status" [class.taken]="spot.reserved"></div>
+
+          <div class="tooltip" *ngIf="spot.reserved">
+            <p><strong>Name:</strong> {{spot.reservation?.name}}</p>
+            <p><strong>Badge:</strong> {{spot.reservation?.badgeNumber}}</p>
+            <p><strong>Car:</strong> {{spot.reservation?.carModel}} ({{spot.reservation?.plateNumber}})</p>
+            <button class="cancel-reservation-btn" (click)="cancelReservation(i)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About View -->
+    <div *ngIf="currentView === 'about'" class="view-container">
+      <div class="about-content">
+        <h2>About Our Parking System</h2>
+
+        <div class="about-section">
+          <h3>Smart Park Management</h3>
+          <p>Our parking management system is built with one goal in mind: to make parking simple, organized, and stress-free. Employees no longer need to waste time circling around looking for a spot — with just a few clicks, they can reserve or locate available spaces quickly and easily. This creates a smoother start to their day, allowing them to focus on what truly matters.</p>
+          <p>For parking managers, the system takes away the complexity of manual oversight. Instead of dealing with spreadsheets or constant phone calls, they gain a clear, real-time view of all parking activities in one place. Managing access, monitoring availability, and ensuring fair usage becomes effortless, allowing them to keep everything running smoothly with minimal effort.</p>
+          <p>Beyond convenience, our solution also fosters better communication and coordination between employees and management. By streamlining the entire process, it reduces stress, increases productivity, and ensures that everyone enjoys a more organized parking experience. Whether you’re an employee arriving at work or a manager responsible for keeping operations efficient, this platform is designed to make parking management as easy as it should be.</p>
+        </div>
+
+        <div class="about-section">
+          <h3>Parking Plans & Billing</h3>
+          <p>We offer flexible billing options to accommodate different employee needs. Choose the plan that works best for you:</p>
+          <div class="billing-options">
+            <div class="billing-card normal">
+              <h4>Normal</h4>
+              <p class="price">85MAD/month</p>
+              <ul>
+                <li>Guaranteed uncovered spot</li>
+                <li>24/7 access</li>
+                <li>First-come, first-served EV charging</li>
+                <li>Standard security patrols</li>
+              </ul>
+              <button class="plan-select-btn" (click)="selectPlan('normal')">Select Plan</button>
+            </div>
+            <div class="billing-card premium">
+              <h4>Premium</h4>
+              <p class="price">120MAD/month</p>
+              <ul>
+                <li>Covered parking spot</li>
+                <li>Closer to building entrance</li>
+                <li>Reserved EV charging available</li>
+                <li>Enhanced security coverage</li>
+                <li>Priority during events</li>
+              </ul>
+              <button class="plan-select-btn" (click)="selectPlan('premium')">Select Plan</button>
+            </div>
+            <div class="billing-card deluxe">
+              <h4>Deluxe</h4>
+              <p class="price">180MAD/month</p>
+              <ul>
+                <li>Premium covered parking</li>
+                <li>Closest to building entrance</li>
+                <li>Dedicated EV charging station</li>
+                <li>24/7 dedicated security</li>
+                <li>Car cleaning service once monthly</li>
+                <li>Guaranteed spot during events</li>
+                <li>Optional valet service</li>
+              </ul>
+              <button class="plan-select-btn" (click)="selectPlan('deluxe')">Select Plan</button>
+            </div>
+          </div>
+          <p class="billing-note">All plans include maintenance, security, and shuttle service to remote lots. Payments can be made via payroll deduction, credit card, or through the company portal.</p>
+        </div>
+
+        <div class="about-section">
+          <h3>🚗 Smart Parking Management</h3>
+          <p>Our parking system provides efficient management of company parking spaces. Employees can reserve spots in advance, ensuring hassle-free parking. Our AI-powered algorithm optimizes space utilization and reduces congestion during peak hours.</p>
+        </div>
+
+        <div class="about-section">
+          <h3>📋 Features</h3>
+          <ul>
+            <li>Real-time spot availability with live updates</li>
+            <li>Easy reservation system with instant confirmation</li>
+            <li>Employee management with role-based access</li>
+            <li>Comprehensive reporting and analytics dashboard</li>
+            <li>Integration with building access systems</li>
+            <li>Mobile app for on-the-go reservations</li>
+            <li>EV charging station management</li>
+            <li>Visitor parking management</li>
+          </ul>
+        </div>
+
+        <div class="about-section">
+          <h3>💬 Employee Testimonials</h3>
+          <div class="testimonials">
+            <div class="testimonial">
+              <p>"Since we implemented this system, I've saved 15 minutes every morning that I used to spend looking for parking. That's over 60 hours a year!"</p>
+              <p class="author">- Hanane J., Marketing Department</p>
+            </div>
+            <div class="testimonial">
+              <p>"The billing is transparent and fair. I only pay for the days I actually come to the office, which is perfect for our hybrid work schedule."</p>
+              <p class="author">- Walid T., Software Engineering</p>
+            </div>
+            <div class="testimonial">
+              <p>"As someone who drives an electric vehicle, having guaranteed access to charging stations has eliminated my range anxiety. The system is seamless."</p>
+              <p class="author">- Amine L., Finance Department</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h3>📞 Contact & Support</h3>
+          <p>For support or questions, please contact the appropriate team member:</p>
+
+          <div class="contact-cards">
+            <div class="contact-card">
+              <h4>Parking Administration</h4>
+              <p><strong>Manager:</strong> Anass El Alawi</p>
+              <p>📧 parking.admin@company.com</p>
+              <p>📞 Ext. 4550</p>
+              <p class="hours">Mon-Fri: 8:00 AM - 5:00 PM</p>
+              <p class="responsibilities">Billing issues, policy questions, special accommodations</p>
+            </div>
+
+            <div class="contact-card">
+              <h4>Technical Support</h4>
+              <p><strong>Lead:</strong> Jihane Tali</p>
+              <p>📧 parking.tech@company.com</p>
+              <p>📞 Ext. 4551</p>
+              <p class="hours">24/7 Support Available</p>
+              <p class="responsibilities">App issues, login problems, system errors</p>
+            </div>
+
+            <div class="contact-card">
+              <h4>Parking Security & Enforcement</h4>
+              <p><strong>Head of Security:</strong> Mouna Idrissi</p>
+              <p>📧 parking.security@company.com</p>
+              <p>📞 Ext. 4552</p>
+              <p>🆘 Emergency: Ext. 911</p>
+              <p class="hours">24/7 Patrols</p>
+              <p class="responsibilities">Violations, safety concerns, lost items</p>
+            </div>x
+          </div>
+
+          <div class="emergency-notice">
+            <h4>🚨 Emergency Contact</h4>
+            <p>For immediate assistance in the parking facilities, use the blue emergency call boxes located throughout the parking garage or call extension 911 from any company phone.</p>
+          </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="about-section">
+          <h3>✉️ Contact Form</h3>
+          <p>Have a question or concern? Send us a message directly and we'll respond within 24 hours:</p>
+
+          <form class="contact-form" (ngSubmit)="submitContactForm()" #contactForm="ngForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName">Your Name *</label>
+                <input type="text" id="contactName" name="contactName"
+                       [(ngModel)]="contactFormData.name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactBadge">Badge Number *</label>
+                <input type="text" id="contactBadge" name="contactBadge"
+                       [(ngModel)]="contactFormData.badgeNumber" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactEmail">Email Address *</label>
+                <input type="email" id="contactEmail" name="contactEmail"
+                       [(ngModel)]="contactFormData.email" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactPhone">Phone Number</label>
+                <input type="tel" id="contactPhone" name="contactPhone"
+                       [(ngModel)]="contactFormData.phone">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contactDepartment">Department to Contact *</label>
+              <select id="contactDepartment" name="contactDepartment"
+                      [(ngModel)]="contactFormData.department" required>
+                <option value="">Select Department</option>
+                <option value="administration">Parking Administration</option>
+                <option value="technical">Technical Support</option>
+                <option value="security">Security & Enforcement</option>
+                <option value="maintenance">Facilities & Maintenance</option>
+                <option value="billing">Billing Questions</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contactSubject">Subject *</label>
+              <input type="text" id="contactSubject" name="contactSubject"
+                     [(ngModel)]="contactFormData.subject" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage">Your Message *</label>
+              <textarea id="contactMessage" name="contactMessage"
+                        [(ngModel)]="contactFormData.message"
+                        rows="5" required placeholder="Please describe your question or concern in detail..."></textarea>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" [(ngModel)]="contactFormData.urgent" name="urgent">
+                This is an urgent matter requiring immediate attention
+              </label>
+            </div>
+
+          <button type="submit" class="submit-form-btn" [disabled]="isSending">
+            <span *ngIf="!isSending">Send Message</span>
+            <span *ngIf="isSending" class="sending-indicator">
+              <span class="spinner"></span>
+              Sending...
+            </span>
+          </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings View -->
+    <div *ngIf="currentView === 'settings'" class="view-container">
+      <div class="settings-content">
+        <h2>System Settings</h2>
+
+        <div class="settings-section">
+          <h3>Parking Configuration</h3>
+          <div class="form-group">
+            <label>Total Parking Spots:</label>
+            <input type="number" [(ngModel)]="totalSpots" min="1" max="100">
+          </div>
+          <button class="save-btn" (click)="updateParkingConfig()">Update Parking Layout</button>
+        </div>
+
+        <div class="settings-section">
+          <h3>Notification Preferences</h3>
+          <div class="form-group">
+            <label>Notification Method:</label>
+            <select [(ngModel)]="notificationPrefs">
+              <option value="email">Email</option>
+              <option value="sms">SMS</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Administration</h3>
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" [(ngModel)]="adminSettings.allowOverbooking">
+              Allow overbooking
+            </label>
+          </div>
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" [(ngModel)]="adminSettings.autoAssign">
+              Auto-assign spots
+            </label>
+          </div>
+          <button class="save-btn" (click)="saveSettings()">Save All Settings</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Smart Parking Management. All rights reserved.</p>
+      <p>v1.0.0 | Built by Mouhieddine</p>
+    </div>
+  </footer>
+
+  <!-- Reservation Modal -->
+  <div class="modal" [class.show]="showModal">
+    <div class="modal-content">
+      <h2>🚗 Reserve Parking Spot</h2>
+      <form (ngSubmit)="submitReservation()" #reservationForm="ngForm">
+        <div class="form-group">
+          <label>Your Name:</label>
+          <input type="text" [(ngModel)]="newReservation.name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label>Badge Number:</label>
+          <input type="text" [(ngModel)]="newReservation.badgeNumber" name="badgeNumber" required>
+        </div>
+        <div class="form-group">
+          <label>Car Model:</label>
+          <input type="text" [(ngModel)]="newReservation.carModel" name="carModel" required>
+        </div>
+        <div class="form-group">
+          <label>License Plate:</label>
+          <input type="text" [(ngModel)]="newReservation.plateNumber" name="plateNumber" required>
+        </div>
+        <div class="form-group">
+          <label>Select Spot:</label>
+          <select [(ngModel)]="selectedSpotIndex" name="spot" required>
+            <option *ngFor="let spotIndex of availableSpots" [value]="spotIndex">
+              Spot {{spotIndex + 1}}
+            </option>
+          </select>
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="submit-btn lively">Reserve</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Plan Selection Modal -->
+  <div class="modal" [class.show]="showPlanModal">
+    <div class="modal-content">
+      <h2>Select Parking Plan</h2>
+      <div class="plan-confirmation">
+        <p>You've selected the <strong>{{selectedPlan}}</strong> parking plan.</p>
+        <p class="plan-price">{{getPlanPrice(selectedPlan)}}/month</p>
+
+        <div class="form-group">
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod" [(ngModel)]="paymentMethod">
+            <option value="payroll">Payroll Deduction</option>
+            <option value="credit">Credit Card</option>
+            <option value="debit">Debit Card</option>
+          </select>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" [(ngModel)]="agreeTerms">
+            I agree to the <a href="#" class="terms-link">terms and conditions</a>
+          </label>
+        </div>
+
+        <div class="modal-buttons">
+          <button type="button" class="cancel-btn" (click)="closePlanModal()">Cancel</button>
+          <button type="button" class="submit-btn"
+                  [disabled]="!agreeTerms" (click)="confirmPlanSelection()">
+            Confirm Selection
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Message Popup -->
+  <div class="success-popup" [class.show]="showSuccessPopup">
+    <div class="success-content">
+      <div class="success-icon">✓</div>
+      <h3>{{successTitle}}</h3>
+      <p>{{successMessage}}</p>
+      <button class="success-close-btn" (click)="closeSuccessPopup()">OK</button>
+    </div>
+  </div>
+</div>
